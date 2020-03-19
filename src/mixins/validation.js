@@ -1,4 +1,6 @@
 const defaultMessages = {
+    _default:   'Полето е попълнено неправилно',
+
     required:   'Полето е задължително',
     min:        'Полето трябва да е поне %{} символа',
     max:        'Полето не може да е повече от %{} символа',
@@ -137,13 +139,11 @@ export default {
             let error = ''
 
             if (this.errorMessages[fieldName] && this.errorMessages[fieldName][rule]) {
-                error = this.errorMessages[fieldName][rule]
+                error = this.errorMessages[fieldName][rule].replace('%{}', value)
             } else if (defaultMessages[rule]) {
-                error = defaultMessages[rule].indexOf('%{}') > -1 ?
-                    defaultMessages[rule].replace('%{}', value) :
-                    defaultMessages[rule]
+                error = defaultMessages[rule].replace('%{}', value)
             } else {
-                error = 'Полето е попълнено неправилно'
+                error = defaultMessages._default
             }
 
             this.errors[fieldName] = error
@@ -224,7 +224,6 @@ export const validators = {
         return collection.filter(item => item[prop] == data).length > 0
     },
 }
-
 
 const helpers = {
 
