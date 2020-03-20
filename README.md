@@ -24,7 +24,77 @@ npm run serve
 
 ## Usage
 
-The mixins adds several methods and data properties plus one computed property to the component.
+Simple example. Full component. All the good stuff
+
+```
+<template>
+
+    <form @submit="submit">
+        <div>
+            <label for="name">Give me your name</label>
+            <input id="name" name="name" type="text" v-model="form.name" @blur="onBlur" />
+            <div class="error">{{ errors.name }}</div>
+        </div>
+
+        <button type="submit">Give it to me</button>
+
+    </form>
+
+</template>
+
+<script>
+import validation from './mixins/validation' // or path to the mixin
+
+export default {
+    name: 'App',
+
+    data() {
+        return {
+            form: {
+                name: '',
+            },
+
+            validations: {
+                name: 'required|max:30|min:3',
+            },
+
+            errors: {
+                name: '',
+            },
+
+            errorMessages: {
+                name: {
+                    required: 'Your name is required',
+                    min: 'Your name can not be less than %{} characters',
+                    max: 'Your name can not be more than %{} characters'
+                }
+            },
+
+        }
+    },
+
+    methods: {
+        submit(e) {
+            e.preventDefault()
+
+            this.validateForm()
+            if (!this.checkForm()) return
+
+            // sophisticated front end engineering or
+
+            alert('Thank you!')
+        }
+    },
+
+    mixins: [validation]
+
+}
+</script>
+```
+
+## The mixin
+
+The mixin adds several methods and data properties plus one computed property to the component.
 
 The data properties:
 
@@ -395,74 +465,4 @@ validations {
     ...
     category:   'exist:stuff.categories,option'
 }
-```
-
-## Simple example
-
-Full component. All the good stuff
-
-```
-<template>
-
-    <form @submit="submit">
-        <div>
-            <label for="name">Give me your name</label>
-            <input id="name" name="name" type="text" v-model="form.name" @blur="onBlur" />
-            <div class="error">{{ errors.name }}</div>
-        </div>
-
-        <button type="submit">Give it to me</button>
-
-    </form>
-
-</template>
-
-<script>
-import validation from './mixins/validation' // or path to the mixin
-
-export default {
-    name: 'App',
-
-    data() {
-        return {
-            form: {
-                name: '',
-            },
-
-            validations: {
-                name: 'required|max:30|min:3',
-            },
-
-            errors: {
-                name: '',
-            },
-
-            errorMessages: {
-                name: {
-                    required: 'Your name is required',
-                    min: 'Your name can not be less than %{} characters',
-                    max: 'Your name can not be more than %{} characters'
-                }
-            },
-
-        }
-    },
-
-    methods: {
-        submit(e) {
-            e.preventDefault()
-
-            this.validateForm()
-            if (!this.checkForm()) return
-
-            // sophisticated front end engineering or
-
-            alert('Thank you!')
-        }
-    },
-
-    mixins: [validation]
-
-}
-</script>
 ```
