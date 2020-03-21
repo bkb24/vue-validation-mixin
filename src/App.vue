@@ -69,6 +69,8 @@ export default {
                 { option: 'maniac', text: 'Maniac' }
             ],
 
+            registeredUsernames: ['bkb24', 'number24'],
+
             validationTriggered: true,
 
             form: {
@@ -80,8 +82,8 @@ export default {
             },
 
             validations: {
-                email:      'required|email|max:255',
-                username:   'required|max:30|min:3',
+                email:      'required|email|max:255|notIn:admin@email.com,support@email.com',
+                username:   'required|max:30|min:3|doesNotExistIn:registeredUsernames',
                 password:   'required|max:30|min:8',
                 bio:        'sometimes|max:100',
                 category:   'exist:categories,option'
@@ -99,12 +101,14 @@ export default {
                 email: {
                     required: 'Email is required',
                     email: 'Email is not valid',
-                    max: 'Email can not be over %{} characters'
+                    max: 'Email can not be over %{} characters',
+                    notIn: 'Email must not be admin@email.com or support@email.com'
                 },
                 username: {
                     required: 'Username is required',
                     min: 'Username can not be under %{} characters long',
-                    max: 'Username can not be over %{} characters long'
+                    max: 'Username can not be over %{} characters long',
+                    doesNotExistIn: 'This username is in use already'
                 },
                 password: {
                     required: 'Password is required',

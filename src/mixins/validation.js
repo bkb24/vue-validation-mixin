@@ -121,6 +121,10 @@ export default {
 
                 if (rule === 'exist') {
                     isValid = this.validateExists(fieldName, value)
+                } else if (rule === 'existIn') {
+                    isValid = validators.existIn.bind(this)(this.form[fieldName], this[value])
+                } else if (rule === 'doesNotExistIn') {
+                    isValid = validators.doesNotExistIn.bind(this)(this.form[fieldName], this[value])
                 } else if (rule === 'func') {
                     isValid = this.validateFunc(fieldName, value)
                 } else {
@@ -220,8 +224,24 @@ export const validators = {
         return data.length <= max
     },
 
+    in(data, terms) {
+        return terms.split(',').includes(data)
+    },
+
+    notIn(data, terms) {
+        return !terms.split(',').includes(data)
+    },
+
     exist(data, collection, prop) {
         return collection.filter(item => item[prop] == data).length > 0
+    },
+
+    existIn(data, collection) {
+        return collection.includes(data)
+    },
+
+    doesNotExistIn(data, collection) {
+        return !collection.includes(data)
     },
 }
 

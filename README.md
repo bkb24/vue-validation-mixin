@@ -397,6 +397,29 @@ validations {
 }
 ```
 
+**in** _(in:[commaSeparatedOptions])_
+
+Checks if given value is present in the comma separated options _(commaSeparatedOptions)_ like this
+
+```
+validations {
+    ...
+    userState: 'in:active,suspended,unverified'
+}
+```
+
+**notIn** _(notIn:[commaSeparatedOptions])_
+
+The value must not be present in the comma separated options _(commaSeparatedOptions)_ like this
+
+```
+validations {
+    ...
+    bestNbaTeam: 'notIn:cavaliers,knicks'
+}
+```
+
+Just to clarify, if the value chosen is *knicks* there would be an error
 
 **exist** _(exist:[collection, prop])_
 
@@ -466,3 +489,47 @@ validations {
     category:   'exist:stuff.categories,option'
 }
 ```
+
+**existIn** _(existIn:[collection])_
+
+Checks if given value is present in the user defined _collection_, could be data property for example
+
+```
+data() {
+    return {
+        ...
+        laTeams: ['lakers', 'kings', 'dodgers']
+    }
+}
+```
+
+```
+validations {
+    ...
+    isLosAngelesTeam: 'existIn:laTeams'
+}
+```
+
+So the value must be one of the _laTeams_ ('lakers', 'kings', 'dodgers')
+
+**doesNotExistIn** _(doesNotExistIn:[collection])_
+
+The value must not be present in the user defined _collection_, could be data property for example
+
+```
+data() {
+    return {
+        ...
+        frontEndStack: ['bootstrap', 'jQuery']
+    }
+}
+```
+
+```
+validations {
+    ...
+    frontEndTechnology: 'doesNotExistIn:frontEndStack'
+}
+```
+
+So if the chosen technology or framework or whatever (bootstrap and jQuery are called) is in the _frontEndStack_ array, then you will get un error (and rightfully so)
