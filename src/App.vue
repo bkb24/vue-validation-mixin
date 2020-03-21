@@ -44,6 +44,15 @@
                 <div class="error">{{ errors.bio }}</div>
             </div>
 
+            <div class="form-line form-line--consent">
+                <input id="consent" type="checkbox" name="consent" @blur="onBlur" v-model="form.consent" />
+                <label for="consent">
+                    You allow us to use your information for the purposes of this educational material.
+                    Don't wory we don't use cookies.</label>
+
+                <div class="error">{{ errors.consent }}</div>
+            </div>
+
             <button class="btn">Submit</button>
 
         </form>
@@ -78,15 +87,17 @@ export default {
                 username:   '',
                 password:   '',
                 bio:        '',
-                category:   ''
+                category:   '',
+                consent:    false
             },
 
             validations: {
                 email:      'required|email|max:255|notIn:admin@email.com,support@email.com',
-                username:   'required|max:30|min:3|doesNotExistIn:registeredUsernames',
+                username:   'required|alphaNum|max:30|min:3|doesNotExistIn:registeredUsernames',
                 password:   'required|max:30|min:8',
                 bio:        'sometimes|max:100',
-                category:   'exist:categories,option'
+                category:   'exist:categories,option',
+                consent:    'accepted'
             },
 
             errors: {
@@ -94,7 +105,8 @@ export default {
                 username: '',
                 password: '',
                 bio: '',
-                category: ''
+                category: '',
+                consent: ''
             },
 
             errorMessages: {
@@ -106,6 +118,7 @@ export default {
                 },
                 username: {
                     required: 'Username is required',
+                    alphaNum: 'Username can have only letters and numbers',
                     min: 'Username can not be under %{} characters long',
                     max: 'Username can not be over %{} characters long',
                     doesNotExistIn: 'This username is in use already'
@@ -120,6 +133,9 @@ export default {
                 },
                 category: {
                     exist: 'This user category does not exist'
+                },
+                consent: {
+                    accepted: 'Consent is needed from you so we can use your stuff'
                 }
             },
 
@@ -175,6 +191,18 @@ label {
 .form-line {
     display: flex;
     flex-wrap: wrap;
+}
+
+.form-line--consent {
+    margin-bottom: 2rem;
+
+    label {
+        width: 90%;
+    }
+
+    .error {
+        padding-left: 0;
+    }
 }
 
 input, textarea, select {

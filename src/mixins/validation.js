@@ -176,6 +176,42 @@ export const validators = {
         return data !== null && data !== ''
     },
 
+    alpha(data) {
+        return /^[a-zA-Z]+$/.test(data)
+    },
+
+    alphaDash(data) {
+        return /^[a-zA-Z-_]+$/.test(data)
+    },
+
+    alphaNum(data) {
+        return /^[a-zA-Z0-9]+$/.test(data)
+    },
+
+    number(data) {
+        return !Number.isNaN(data)
+    },
+
+    integer(data) {
+        return Number.isInteger(data)
+    },
+
+    boolean(data) {
+        if (data === true || data === false) return true
+        if (data === 1 || data === 0) return true
+        if (data === '1' || data === '0') return true
+
+        return false
+    },
+
+    accepted(data) {
+        return data === true || data === 1 || data === '1' || data === 'yes' || data === 'on'
+    },
+
+    pattern(data, pattern) {
+        return pattern.test(data)
+    },
+
     max(data, max) {
         return data.length <= max
     },
@@ -186,18 +222,6 @@ export const validators = {
 
     gt(data, than) {
         return data > than
-    },
-
-    pattern(data, pattern) {
-        return pattern.test(data)
-    },
-
-    number(data) {
-        return !Number.isNaN(data)
-    },
-
-    integer(data) {
-        return Number.isInteger(data)
     },
 
     email(data) {

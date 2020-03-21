@@ -216,7 +216,7 @@ A user defined method, not implemented in the mixin. You use this if you don't w
 
 _onChange_
 
-This is supposed to run validaiton on form element change, but you can run the function on other events. It also sets the form element to the value changed
+This is supposed to run validation on form element change, but you can run the function on other events. It also sets the form element to the value changed
 
 ```
 <input type="text" name="name" @input="onChange"/>
@@ -267,7 +267,84 @@ validations {
 }
 ```
 
-So that means if _bio_ is empty calidation passes no issues, but if there is a _bio_ it is going to get validated and when length is over 100 characters then is invalid
+**alpha**
+
+Field must be only English letters using this reg ex /^[a-zA-Z]+$/
+
+```
+validations {
+    ...
+    firstName: 'alpha',
+}
+```
+
+**alphaDash**
+
+Field must be only English letters underscore and a dash using this reg ex /^[a-zA-Z-_]+$/
+
+```
+validations {
+    ...
+    kebabCaseName: 'alphaDash',
+}
+```
+
+**alphaNum**
+
+Field must be only English letters or numbers using this reg ex /^[a-zA-Z0-9]+$/
+
+```
+validations {
+    ...
+    username: 'alphaNum',
+}
+```
+
+**number**
+
+The value must be a number - integer or a float
+
+```
+validations {
+    ...
+    price: 'number'
+}
+```
+
+**integer**
+
+The value must be an integer
+
+```
+validations {
+    ...
+    brainCells: 'integer'
+}
+```
+
+So that means if _bio_ is empty, validation passes no issues, but if there is a _bio_ it is going to get validated and when length is over 100 characters then is invalid
+
+**boolean**
+
+Field is valid if value is _true_, _false_, _1_, _0_, _'1'_ or _'0'_
+
+```
+validations {
+    ...
+    active: 'boolean'
+}
+```
+
+**accepted**
+
+Checks if value is _true_, _'yes'_, _'on'_, _1_, _'1'_. Yes, those rules are Laravel 'inspired'
+
+```
+validations {
+    ...
+    consent: 'accepted'
+}
+```
 
 **max** _(max:[number])_
 
@@ -283,7 +360,7 @@ validations {
 
 **min** _(min:[number])_
 
-Like max but restrict minumum length
+Like max but restrict minimum length
 
 ```
 validations {
@@ -316,31 +393,6 @@ validations {
     alphaNumSecret: 'pattern:/^[a-zA-Z0-9]+$/'
 }
 ```
-
-
-**number**
-
-The value must be a number - integer or a float
-
-```
-validations {
-    ...
-    price: 'number'
-}
-```
-
-
-**integer**
-
-The value must be an integer
-
-```
-validations {
-    ...
-    brainCells: 'integer'
-}
-```
-
 
 **email**
 
