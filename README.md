@@ -449,6 +449,18 @@ validations {
 }
 ```
 
+**same** _(same:[fieldName])_
+
+The target field has to be exactly the same (===) as the _filedName_ which is a name of a field in _form_ object
+
+```
+validations {
+    ...
+    password: 'required|min:8'
+    passwordRepeat: 'required|same:password'
+}
+```
+
 **in** _(in:[commaSeparatedOptions])_
 
 Checks if given value is present in the comma separated options _(commaSeparatedOptions)_ like this
