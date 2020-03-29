@@ -467,11 +467,11 @@ The value must not be present in the comma separated options _(commaSeparatedOpt
 ```
 validations {
     ...
-    bestNbaTeam: 'notIn:cavaliers,knicks'
+    goodFood: 'notIn:cake,spaghetti,whale'
 }
 ```
 
-Just to clarify, if the value chosen is *knicks* there would be an error
+NO, YOU DO NOT EAT THE WHALES. LEAVE THEM ALONE
 
 **exist** _(exist:[collection, prop])_
 

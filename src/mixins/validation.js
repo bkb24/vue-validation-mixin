@@ -127,6 +127,8 @@ export default {
                     isValid = validators.doesNotExistIn.bind(this)(this.form[fieldName], this[value])
                 } else if (rule === 'func') {
                     isValid = this.validateFunc(fieldName, value)
+                } else if (rule === 'same') {
+                    isValid = validators.same(this.form[fieldName], this.form[value])
                 } else {
                     isValid = validators[rule](this.form[fieldName], value)
                 }
@@ -246,6 +248,10 @@ export const validators = {
             return (data.size / 1000) <= max
         }
         return data.length <= max
+    },
+
+    same(data, sameAs) {
+        return data === sameAs
     },
 
     in(data, terms) {
